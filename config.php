@@ -5,7 +5,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 const PARAMS = [
     "HOST" => 'localhost',
     "USER" => 'hh',
-    "PASSWORD" => 'mjyDzHfqN9vsDVA',
+    "PASSWORD" => '',
     "DB" => 'hh',
     "CHARSET" => 'utf8mb4'
 ];
