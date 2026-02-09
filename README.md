@@ -9,4 +9,4 @@ Ez egy webes időpontfoglaló rendszer fodrászszalonok számára, amely PHP (PD
 * **E-mail küldés:** SMTP integráció PHPMailer és Mailtrap használatával.
 
 * **Projekt Dokumentáció:** A részletes projektleírás, piackutatás és technikai specifikáció a `docs/` mappában található PDF formátumban.
-* * **API Tesztelés:** A  `Hairsalon.postman_collection.json` fájl a 'postman_test/' mappában található, importálható Postmanbe az API végpontok teszteléséhez.
+* **API Tesztelés:** A  `Hairsalon.postman_collection.json` fájl a 'postman_test/' mappában található, importálható Postmanbe az API végpontok teszteléséhez.
