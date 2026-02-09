@@ -1,0 +1,1307 @@
+{
+  "info": {
+    "_postman_id": "680198ad-a05e-44fb-9a7d-9e392562d4b6",
+    "name": "Hairsalon",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "50713766",
+    "_collection_link": "https://go.postman.co/collection/50713766-680198ad-a05e-44fb-9a7d-9e392562d4b6?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Get appointments by id",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://hh.stud.vts.su.ac.rs/prodzsekt/api/api_my_bookings.php?user_id=10",
+          "protocol": "https",
+          "host": [
+            "hh",
+            "stud",
+            "vts",
+            "su",
+            "ac",
+            "rs"
+          ],
+          "path": [
+            "prodzsekt",
+            "api",
+            "api_my_bookings.php"
+          ],
+          "query": [
+            {
+              "key": "user_id",
+              "value": "10"
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Get appointments by id",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://hh.stud.vts.su.ac.rs/prodzsekt/api/api_my_bookings.php?user_id=10",
+              "protocol": "https",
+              "host": [
+                "hh",
+                "stud",
+                "vts",
+                "su",
+                "ac",
+                "rs"
+              ],
+              "path": [
+                "prodzsekt",
+                "api",
+                "api_my_bookings.php"
+              ],
+              "query": [
+                {
+                  "key": "user_id",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Date",
+              "value": "Sun, 08 Feb 2026 13:37:04 GMT"
+            },
+            {
+              "key": "Server",
+              "value": "Apache"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5, max=100"
+            },
+            {
+              "key": "Connection",
+              "value": "Keep-Alive"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=UTF-8"
+            }
+          ],
+          "cookie": [],
+          "body": "[\n    {\n        \"appointment_id\": 58,\n        \"appointment_date\": \"2026-02-25\",\n        \"appointment_time\": \"15:00:00\",\n        \"status\": \"booked\",\n        \"salon_name\": \"Nindzsa\",\n        \"salon_address\": \"Gellert utca 24\",\n        \"service_name\": \"Férfi hajvágás\",\n        \"price\": 1000\n    },\n    {\n        \"appointment_id\": 50,\n        \"appointment_date\": \"2026-02-18\",\n        \"appointment_time\": \"14:00:00\",\n        \"status\": \"booked\",\n        \"salon_name\": \"Lily Style\",\n        \"salon_address\": \"Gyuri utca 6\",\n        \"service_name\": \"Férfi hajvágás\",\n        \"price\": 800\n    },\n    {\n        \"appointment_id\": 34,\n        \"appointment_date\": \"2026-02-11\",\n        \"appointment_time\": \"10:00:00\",\n        \"status\": \"booked\",\n        \"salon_name\": \"Lily Style\",\n        \"salon_address\": \"Gyuri utca 6\",\n        \"service_name\": \"Férfi hajvágás\",\n        \"price\": 800\n    },\n    {\n        \"appointment_id\": 48,\n        \"appointment_date\": \"2026-02-06\",\n        \"appointment_time\": \"16:00:00\",\n        \"status\": \"completed\",\n        \"salon_name\": \"Lily Style\",\n        \"salon_address\": \"Gyuri utca 6\",\n        \"service_name\": \"Férfi hajvágás\",\n        \"price\": 800\n    },\n    {\n        \"appointment_id\": 49,\n        \"appointment_date\": \"2026-02-06\",\n        \"appointment_time\": \"09:30:00\",\n        \"status\": \"completed\",\n        \"salon_name\": \"Lily Style\",\n        \"salon_address\": \"Gyuri utca 6\",\n        \"service_name\": \"Férfi hajvágás\",\n        \"price\": 800\n    },\n    {\n        \"appointment_id\": 28,\n        \"appointment_date\": \"2026-02-05\",\n        \"appointment_time\": \"10:00:00\",\n        \"status\": \"completed\",\n        \"salon_name\": \"Flow\",\n        \"salon_address\": \"Petőfi Sándor utca 35\",\n        \"service_name\": \"Férfi hajvágás\",\n        \"price\": 900\n    },\n    {\n        \"appointment_id\": 25,\n        \"appointment_date\": \"2026-02-05\",\n        \"appointment_time\": \"09:30:00\",\n        \"status\": \"completed\",\n        \"salon_name\": \"Lily Style\",\n        \"salon_address\": \"Gyuri utca 6\",\n        \"service_name\": \"Férfi hajvágás\",\n        \"price\": 800\n    },\n    {\n        \"appointment_id\": 29,\n        \"appointment_date\": \"2026-02-04\",\n        \"appointment_time\": \"12:00:00\",\n        \"status\": \"cancelled\",\n        \"salon_name\": \"Flow\",\n        \"salon_address\": \"Petőfi Sándor utca 35\",\n        \"service_name\": \"Férfi hajvágás\",\n        \"price\": 900\n    },\n    {\n        \"appointment_id\": 16,\n        \"appointment_date\": \"2026-02-04\",\n        \"appointment_time\": \"11:00:00\",\n        \"status\": \"completed\",\n        \"salon_name\": \"Flow\",\n        \"salon_address\": \"Petőfi Sándor utca 35\",\n        \"service_name\": \"Férfi hajvágás\",\n        \"price\": 900\n    },\n    {\n        \"appointment_id\": 15,\n        \"appointment_date\": \"2026-02-02\",\n        \"appointment_time\": \"09:00:00\",\n        \"status\": \"completed\",\n        \"salon_name\": \"Nindzsa\",\n        \"salon_address\": \"Gellert utca 24\",\n        \"service_name\": \"Borotvákozás\",\n        \"price\": 500\n    },\n    {\n        \"appointment_id\": 10,\n        \"appointment_date\": \"2026-01-19\",\n        \"appointment_time\": \"11:30:00\",\n        \"status\": \"completed\",\n        \"salon_name\": \"Lily Style\",\n        \"salon_address\": \"Gyuri utca 6\",\n        \"service_name\": \"Férfi hajvágás\",\n        \"price\": 800\n    },\n    {\n        \"appointment_id\": 7,\n        \"appointment_date\": \"2026-01-19\",\n        \"appointment_time\": \"09:00:00\",\n        \"status\": \"completed\",\n        \"salon_name\": \"Lily Style\",\n        \"salon_address\": \"Gyuri utca 6\",\n        \"service_name\": \"Férfi hajvágás\",\n        \"price\": 800\n    }\n]"
+        }
+      ]
+    },
+    {
+      "name": "Create new booking",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"user_id\": 1,\r\n    \"salon_id\": 4,\r\n    \"service_id\": 11,\r\n    \"date\": \"2026-02-09\",\r\n    \"time\": \"10:00\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://hh.stud.vts.su.ac.rs/prodzsekt/api/api_book.php",
+          "protocol": "https",
+          "host": [
+            "hh",
+            "stud",
+            "vts",
+            "su",
+            "ac",
+            "rs"
+          ],
+          "path": [
+            "prodzsekt",
+            "api",
+            "api_book.php"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Create new booking",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"user_id\": 1,\r\n    \"salon_id\": 4,\r\n    \"service_id\": 11,\r\n    \"date\": \"2026-02-17\",\r\n    \"time\": \"11:00\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://hh.stud.vts.su.ac.rs/prodzsekt/api/api_book.php",
+              "protocol": "https",
+              "host": [
+                "hh",
+                "stud",
+                "vts",
+                "su",
+                "ac",
+                "rs"
+              ],
+              "path": [
+                "prodzsekt",
+                "api",
+                "api_book.php"
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Date",
+              "value": "Sun, 08 Feb 2026 13:38:41 GMT"
+            },
+            {
+              "key": "Server",
+              "value": "Apache"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Access-Control-Allow-Headers",
+              "value": "Content-Type"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5, max=100"
+            },
+            {
+              "key": "Connection",
+              "value": "Keep-Alive"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"status\": \"success\",\n    \"message\": \"Sikeres foglalás!\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Update booking",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"appointment_id\": 56,\r\n    \"appointment_date\": \"2026-02-24\",\r\n    \"appointment_time\": \"13:00\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://hh.stud.vts.su.ac.rs/prodzsekt/api/api_update_booking.php",
+          "protocol": "https",
+          "host": [
+            "hh",
+            "stud",
+            "vts",
+            "su",
+            "ac",
+            "rs"
+          ],
+          "path": [
+            "prodzsekt",
+            "api",
+            "api_update_booking.php"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Update booking",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"appointment_id\": 71,\r\n    \"appointment_date\": \"2026-02-23\",\r\n    \"appointment_time\": \"14:00\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://hh.stud.vts.su.ac.rs/prodzsekt/api/api_update_booking.php",
+              "protocol": "https",
+              "host": [
+                "hh",
+                "stud",
+                "vts",
+                "su",
+                "ac",
+                "rs"
+              ],
+              "path": [
+                "prodzsekt",
+                "api",
+                "api_update_booking.php"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Date",
+              "value": "Sun, 08 Feb 2026 13:39:33 GMT"
+            },
+            {
+              "key": "Server",
+              "value": "Apache"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Access-Control-Allow-Methods",
+              "value": "PUT, OPTIONS"
+            },
+            {
+              "key": "Access-Control-Allow-Headers",
+              "value": "Content-Type"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5, max=100"
+            },
+            {
+              "key": "Connection",
+              "value": "Keep-Alive"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=UTF-8"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"status\": \"success\",\n    \"message\": \"Időpont sikeresen módosítva!\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Delete booking",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"appointment_id\": 59\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://hh.stud.vts.su.ac.rs/prodzsekt/api/api_delete_booking.php",
+          "protocol": "https",
+          "host": [
+            "hh",
+            "stud",
+            "vts",
+            "su",
+            "ac",
+            "rs"
+          ],
+          "path": [
+            "prodzsekt",
+            "api",
+            "api_delete_booking.php"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Delete booking",
+          "originalRequest": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"appointment_id\": 59\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://hh.stud.vts.su.ac.rs/prodzsekt/api/api_delete_booking.php",
+              "protocol": "https",
+              "host": [
+                "hh",
+                "stud",
+                "vts",
+                "su",
+                "ac",
+                "rs"
+              ],
+              "path": [
+                "prodzsekt",
+                "api",
+                "api_delete_booking.php"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Date",
+              "value": "Sun, 08 Feb 2026 13:40:18 GMT"
+            },
+            {
+              "key": "Server",
+              "value": "Apache"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Access-Control-Allow-Methods",
+              "value": "DELETE, OPTIONS"
+            },
+            {
+              "key": "Access-Control-Allow-Headers",
+              "value": "Content-Type"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5, max=100"
+            },
+            {
+              "key": "Connection",
+              "value": "Keep-Alive"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"status\": \"success\",\n    \"message\": \"Foglalás törölve.\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\": \"dzokica@gmail.com\",\r\n    \"password\": \"csirke123\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://hh.stud.vts.su.ac.rs/prodzsekt/api/api_login.php",
+          "protocol": "https",
+          "host": [
+            "hh",
+            "stud",
+            "vts",
+            "su",
+            "ac",
+            "rs"
+          ],
+          "path": [
+            "prodzsekt",
+            "api",
+            "api_login.php"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Login",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"dzokica@gmail.com\",\r\n    \"password\": \"csirke123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://hh.stud.vts.su.ac.rs/prodzsekt/api/api_login.php",
+              "protocol": "https",
+              "host": [
+                "hh",
+                "stud",
+                "vts",
+                "su",
+                "ac",
+                "rs"
+              ],
+              "path": [
+                "prodzsekt",
+                "api",
+                "api_login.php"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Date",
+              "value": "Sun, 08 Feb 2026 13:41:05 GMT"
+            },
+            {
+              "key": "Server",
+              "value": "Apache"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Access-Control-Allow-Headers",
+              "value": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
+            },
+            {
+              "key": "Access-Control-Allow-Methods",
+              "value": "POST, OPTIONS"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5, max=100"
+            },
+            {
+              "key": "Connection",
+              "value": "Keep-Alive"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=UTF-8"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"status\": \"success\",\n    \"user\": {\n        \"id\": 1,\n        \"username\": \"dzokica\",\n        \"role\": \"user\"\n    }\n}"
+        }
+      ]
+    },
+    {
+      "name": "Get Salons",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\": \"dzokica@gmail.com\",\r\n    \"password\": \"csirke123\"\r\n}"
+        },
+        "url": {
+          "raw": "https://hh.stud.vts.su.ac.rs/prodzsekt/api/api_salons.php",
+          "protocol": "https",
+          "host": [
+            "hh",
+            "stud",
+            "vts",
+            "su",
+            "ac",
+            "rs"
+          ],
+          "path": [
+            "prodzsekt",
+            "api",
+            "api_salons.php"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Get Salons",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"dzokica@gmail.com\",\r\n    \"password\": \"csirke123\"\r\n}"
+            },
+            "url": {
+              "raw": "https://hh.stud.vts.su.ac.rs/prodzsekt/api/api_salons.php",
+              "protocol": "https",
+              "host": [
+                "hh",
+                "stud",
+                "vts",
+                "su",
+                "ac",
+                "rs"
+              ],
+              "path": [
+                "prodzsekt",
+                "api",
+                "api_salons.php"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Date",
+              "value": "Sun, 08 Feb 2026 13:41:28 GMT"
+            },
+            {
+              "key": "Server",
+              "value": "Apache"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5, max=100"
+            },
+            {
+              "key": "Connection",
+              "value": "Keep-Alive"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "[\n    {\n        \"salon_id\": 2,\n        \"name\": \"Nindzsa\",\n        \"city\": \"Szabadka\",\n        \"address\": \"Gellert utca 24\"\n    },\n    {\n        \"salon_id\": 3,\n        \"name\": \"Flow\",\n        \"city\": \"Szabadka\",\n        \"address\": \"Petőfi Sándor utca 35\"\n    },\n    {\n        \"salon_id\": 4,\n        \"name\": \"Lily Style\",\n        \"city\": \"Szabadka\",\n        \"address\": \"Gyuri utca 6\"\n    },\n    {\n        \"salon_id\": 5,\n        \"name\": \"joker\",\n        \"city\": \"subotica\",\n        \"address\": \"sandor 25\"\n    }\n]"
+        }
+      ]
+    },
+    {
+      "name": "Get Services",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://hh.stud.vts.su.ac.rs/prodzsekt/api/api_services.php?salon_id=4",
+          "protocol": "https",
+          "host": [
+            "hh",
+            "stud",
+            "vts",
+            "su",
+            "ac",
+            "rs"
+          ],
+          "path": [
+            "prodzsekt",
+            "api",
+            "api_services.php"
+          ],
+          "query": [
+            {
+              "key": "salon_id",
+              "value": "4"
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Get Services",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://hh.stud.vts.su.ac.rs/prodzsekt/api/api_services.php?salon_id=4",
+              "protocol": "https",
+              "host": [
+                "hh",
+                "stud",
+                "vts",
+                "su",
+                "ac",
+                "rs"
+              ],
+              "path": [
+                "prodzsekt",
+                "api",
+                "api_services.php"
+              ],
+              "query": [
+                {
+                  "key": "salon_id",
+                  "value": "4"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Date",
+              "value": "Sun, 08 Feb 2026 13:42:05 GMT"
+            },
+            {
+              "key": "Server",
+              "value": "Apache"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5, max=100"
+            },
+            {
+              "key": "Connection",
+              "value": "Keep-Alive"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=UTF-8"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"status\": \"success\",\n    \"data\": [\n        {\n            \"service_id\": 8,\n            \"name\": \"Férfi hajvágás\",\n            \"price\": 800,\n            \"duration\": 30\n        },\n        {\n            \"service_id\": 9,\n            \"name\": \"Női hajvágás\",\n            \"price\": 1300,\n            \"duration\": 30\n        },\n        {\n            \"service_id\": 11,\n            \"name\": \"Kutyanyírás\",\n            \"price\": 2000,\n            \"duration\": 60\n        }\n    ]\n}"
+        }
+      ]
+    },
+    {
+      "name": "User favourites",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://hh.stud.vts.su.ac.rs/prodzsekt/api/api_favorites.php?user_id=32",
+          "protocol": "https",
+          "host": [
+            "hh",
+            "stud",
+            "vts",
+            "su",
+            "ac",
+            "rs"
+          ],
+          "path": [
+            "prodzsekt",
+            "api",
+            "api_favorites.php"
+          ],
+          "query": [
+            {
+              "key": "user_id",
+              "value": "32"
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "User favourites",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://hh.stud.vts.su.ac.rs/prodzsekt/api/api_favorites.php?user_id=32",
+              "protocol": "https",
+              "host": [
+                "hh",
+                "stud",
+                "vts",
+                "su",
+                "ac",
+                "rs"
+              ],
+              "path": [
+                "prodzsekt",
+                "api",
+                "api_favorites.php"
+              ],
+              "query": [
+                {
+                  "key": "user_id",
+                  "value": "32"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Date",
+              "value": "Sun, 08 Feb 2026 13:42:24 GMT"
+            },
+            {
+              "key": "Server",
+              "value": "Apache"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Access-Control-Allow-Methods",
+              "value": "GET, POST, DELETE"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5, max=100"
+            },
+            {
+              "key": "Connection",
+              "value": "Keep-Alive"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=UTF-8"
+            }
+          ],
+          "cookie": [],
+          "body": "[\n    {\n        \"salon_id\": 2,\n        \"owner_id\": 15,\n        \"name\": \"Nindzsa\",\n        \"address\": \"Gellert utca 24\",\n        \"city\": \"Szabadka\",\n        \"phone\": \"016 454 758\",\n        \"active\": 1,\n        \"image_url\": \"salon1.jpg\"\n    }\n]"
+        }
+      ]
+    },
+    {
+      "name": "User add favorite",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"salon_id\": 4\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://hh.stud.vts.su.ac.rs/prodzsekt/api/api_favorites.php?user_id=10",
+          "protocol": "https",
+          "host": [
+            "hh",
+            "stud",
+            "vts",
+            "su",
+            "ac",
+            "rs"
+          ],
+          "path": [
+            "prodzsekt",
+            "api",
+            "api_favorites.php"
+          ],
+          "query": [
+            {
+              "key": "user_id",
+              "value": "10"
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "User add favorite",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"salon_id\": 4\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://hh.stud.vts.su.ac.rs/prodzsekt/api/api_favorites.php?user_id=10",
+              "protocol": "https",
+              "host": [
+                "hh",
+                "stud",
+                "vts",
+                "su",
+                "ac",
+                "rs"
+              ],
+              "path": [
+                "prodzsekt",
+                "api",
+                "api_favorites.php"
+              ],
+              "query": [
+                {
+                  "key": "user_id",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Date",
+              "value": "Sun, 08 Feb 2026 13:14:29 GMT"
+            },
+            {
+              "key": "Server",
+              "value": "Apache"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Access-Control-Allow-Methods",
+              "value": "GET, POST, DELETE"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5, max=100"
+            },
+            {
+              "key": "Connection",
+              "value": "Keep-Alive"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=UTF-8"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"status\": \"success\",\n    \"message\": \"Kedvencekhez adva\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "User delete favorite",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "https://hh.stud.vts.su.ac.rs/prodzsekt/api/api_favorites.php?user_id=16&salon_id=3",
+          "protocol": "https",
+          "host": [
+            "hh",
+            "stud",
+            "vts",
+            "su",
+            "ac",
+            "rs"
+          ],
+          "path": [
+            "prodzsekt",
+            "api",
+            "api_favorites.php"
+          ],
+          "query": [
+            {
+              "key": "user_id",
+              "value": "16"
+            },
+            {
+              "key": "salon_id",
+              "value": "3"
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "User delete favorite",
+          "originalRequest": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://hh.stud.vts.su.ac.rs/prodzsekt/api/api_favorites.php?user_id=16&salon_id=3",
+              "protocol": "https",
+              "host": [
+                "hh",
+                "stud",
+                "vts",
+                "su",
+                "ac",
+                "rs"
+              ],
+              "path": [
+                "prodzsekt",
+                "api",
+                "api_favorites.php"
+              ],
+              "query": [
+                {
+                  "key": "user_id",
+                  "value": "16"
+                },
+                {
+                  "key": "salon_id",
+                  "value": "3"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Date",
+              "value": "Sun, 08 Feb 2026 13:16:01 GMT"
+            },
+            {
+              "key": "Server",
+              "value": "Apache"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Access-Control-Allow-Methods",
+              "value": "GET, POST, DELETE"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5, max=100"
+            },
+            {
+              "key": "Connection",
+              "value": "Keep-Alive"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=UTF-8"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"status\": \"success\",\n    \"message\": \"Eltávolítva a kedvencekből\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Get Images",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://hh.stud.vts.su.ac.rs/prodzsekt/api/api_upload_image.php?salon_id=2",
+          "protocol": "https",
+          "host": [
+            "hh",
+            "stud",
+            "vts",
+            "su",
+            "ac",
+            "rs"
+          ],
+          "path": [
+            "prodzsekt",
+            "api",
+            "api_upload_image.php"
+          ],
+          "query": [
+            {
+              "key": "salon_id",
+              "value": "2"
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Get Images",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://hh.stud.vts.su.ac.rs/prodzsekt/api/api_upload_image.php?salon_id=2",
+              "protocol": "https",
+              "host": [
+                "hh",
+                "stud",
+                "vts",
+                "su",
+                "ac",
+                "rs"
+              ],
+              "path": [
+                "prodzsekt",
+                "api",
+                "api_upload_image.php"
+              ],
+              "query": [
+                {
+                  "key": "salon_id",
+                  "value": "2"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Date",
+              "value": "Sun, 08 Feb 2026 13:43:15 GMT"
+            },
+            {
+              "key": "Server",
+              "value": "Apache"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Access-Control-Allow-Methods",
+              "value": "POST, GET, OPTIONS"
+            },
+            {
+              "key": "Access-Control-Allow-Headers",
+              "value": "Content-Type"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5, max=100"
+            },
+            {
+              "key": "Connection",
+              "value": "Keep-Alive"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=UTF-8"
+            }
+          ],
+          "cookie": [],
+          "body": "[\n    {\n        \"gallery_id\": 4,\n        \"salon_id\": 2,\n        \"user_id\": 32,\n        \"image_path\": \"img_1770489482_6987868a76cb4.jpg\",\n        \"uploaded_at\": \"2026-02-07 19:38:02\",\n        \"username\": \"berci\"\n    },\n    {\n        \"gallery_id\": 3,\n        \"salon_id\": 2,\n        \"user_id\": 32,\n        \"image_path\": \"img_1770488699_6987837bf2649.jpg\",\n        \"uploaded_at\": \"2026-02-07 19:24:59\",\n        \"username\": \"berci\"\n    }\n]"
+        }
+      ]
+    },
+    {
+      "name": "Post Image",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"user_id\": 33,\r\n    \"salon_id\": 4,\r\n    \"image\": \"dHJlZV9pbWFnZS5qcGc=\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://hh.stud.vts.su.ac.rs/prodzsekt/api/api_upload_image.php",
+          "protocol": "https",
+          "host": [
+            "hh",
+            "stud",
+            "vts",
+            "su",
+            "ac",
+            "rs"
+          ],
+          "path": [
+            "prodzsekt",
+            "api",
+            "api_upload_image.php"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Post Image",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"user_id\": 33,\r\n    \"salon_id\": 4,\r\n    \"image\": \"dHJlZV9pbWFnZS5qcGc=\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://hh.stud.vts.su.ac.rs/prodzsekt/api/api_upload_image.php",
+              "protocol": "https",
+              "host": [
+                "hh",
+                "stud",
+                "vts",
+                "su",
+                "ac",
+                "rs"
+              ],
+              "path": [
+                "prodzsekt",
+                "api",
+                "api_upload_image.php"
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Date",
+              "value": "Sun, 08 Feb 2026 13:30:47 GMT"
+            },
+            {
+              "key": "Server",
+              "value": "Apache"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Access-Control-Allow-Methods",
+              "value": "POST, GET, OPTIONS"
+            },
+            {
+              "key": "Access-Control-Allow-Headers",
+              "value": "Content-Type"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5, max=100"
+            },
+            {
+              "key": "Connection",
+              "value": "Keep-Alive"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=UTF-8"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"status\": \"success\",\n    \"message\": \"Sikeres mentes\"\n}"
+        }
+      ]
+    }
+  ]
+}

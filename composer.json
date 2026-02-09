@@ -1,0 +1,8 @@
+{
+    "require": {
+        "phpmailer/phpmailer": "^7.0",
+        "mobiledetect/mobiledetectlib": "^4.8",
+        "twilio/sdk": "^8.11",
+        "vlucas/phpdotenv": "^5.6"
+    }
+}
