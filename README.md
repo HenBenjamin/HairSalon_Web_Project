@@ -1,6 +1,6 @@
 # HairSalon - Időpontfoglaló Webalkalmazás
 
-Ez egy webes időpontfoglaló rendszer fodrászszalonok számára, amely PHP (PDO), MySQL és Bootstrap technológiák felhasználásával készült. A projekt az iskolai vizsgaremek részeként valósult meg.
+Ez egy webes időpontfoglaló rendszer fodrászszalonok számára, amely PHP (PDO), MySQL és Bootstrap technológiák felhasználásával készült. A projekt az iskolai vizsga részeként valósult meg.
 
 ## Főbb funkciók
 * **Négy hozzáférési szint:** Vendég, Regisztrált felhasználó, Szalon tulajdonosa és Adminisztrátor.
