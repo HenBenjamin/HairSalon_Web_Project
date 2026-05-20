@@ -44,10 +44,20 @@ if (!$is_closed) {
     // 4. Idősávok generálása
     $start = strtotime($hours['start_time']);
     $end = strtotime($hours['end_time']);
+    $now = time(); // A jelenlegi pontos idő timestamp formátumban
 
     while ($start + ($duration * 60) <= $end) {
         $current_slot = date("H:i", $start);
         $db_format = $current_slot . ":00";
+
+        // Kombináljuk a kiválasztott dátumot a generált idősávval, hogy megkapjuk a jövőbeli időpont timestamp-jét
+        $slot_timestamp = strtotime($date . ' ' . $current_slot);
+
+        // EXTRA ELLENŐRZÉS: Ha ez a slot MÁR ELMÚLT a mai napon, akkor generálás nélkül ugrunk a következőre
+        if ($slot_timestamp < $now) {
+            $start += 30 * 60; // Ugorj a következő 30 perces blokkra
+            continue; // Kihagyja a lenti tömbbe pakolást, megy a köv. körre
+        }
 
         $is_booked = isset($booked_data[$db_format]);
 
@@ -133,7 +143,7 @@ if (!$is_closed) {
             <h4 class="mb-3">Időpontok kiválasztása: <?php echo htmlspecialchars($date); ?></h4>
             <div class="d-flex gap-3 mb-4 flex-wrap">
                 <span class="badge bg-success">Szabad</span>
-                <span class="badge bg-danger">Foglalt (Várólista)</span>
+                <span class="badge bg-danger">Foglalt</span>
                 <span class="text-muted ms-auto">
                     <i class="bi bi-clock me-1"></i> Időtartam: <?php echo $duration; ?> perc
                 </span>
@@ -150,7 +160,9 @@ if (!$is_closed) {
                             <p class="text-muted">Nincs elérhető időpont erre a napra a megadott nyitvatartás alapján.</p>
                         </div>
                     <?php else: ?>
-                        <?php foreach ($all_slots as $slot): ?>
+
+                        <!-- // Slotok generalasa, varolistaval egyutt -->
+                        <!-- <?php foreach ($all_slots as $slot): ?>
                             <div class="col-6 col-sm-4 col-md-3 col-lg-2">
                                 <?php if ($slot['booked']): ?>
                                     <a href="varolista_csatlakozas.php?id=<?php echo $slot['appointment_id']; ?>&service_id=<?php echo $service_id; ?>"
@@ -159,6 +171,23 @@ if (!$is_closed) {
                                         <span class="fw-bold"><?php echo $slot['time']; ?></span>
                                         <small style="font-size: 0.6rem; text-transform: uppercase;">Várólista</small>
                                     </a>
+                                <?php else: ?>
+                                    <input type="radio" class="btn-check" name="time" id="t-<?php echo $slot['time']; ?>" value="<?php echo $slot['time']; ?>" required>
+                                    <label class="btn btn-outline-success w-100 slot-box fw-bold shadow-sm" for="t-<?php echo $slot['time']; ?>">
+                                        <?php echo $slot['time']; ?>
+                                    </label>
+                                <?php endif; ?>
+                            </div>
+                        <?php endforeach; ?> -->
+
+                        <!-- //varolista nelkuli slotok generalasa -->
+                        <?php foreach ($all_slots as $slot): ?>
+                            <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                                <?php if ($slot['booked']): ?>
+                                    <button type="button" class="btn btn-danger w-100 slot-box shadow-sm" disabled style="opacity: 0.65; cursor: not-allowed;">
+                                        <span class="fw-bold"><?php echo $slot['time']; ?></span>
+                                        <small style="font-size: 0.6rem; text-transform: uppercase;">Foglalt</small>
+                                    </button>
                                 <?php else: ?>
                                     <input type="radio" class="btn-check" name="time" id="t-<?php echo $slot['time']; ?>" value="<?php echo $slot['time']; ?>" required>
                                     <label class="btn btn-outline-success w-100 slot-box fw-bold shadow-sm" for="t-<?php echo $slot['time']; ?>">

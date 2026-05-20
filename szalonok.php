@@ -81,6 +81,10 @@ $salons = $stmt->fetchAll();
                                    class="btn btn-primary w-100">
                                     <i class="bi bi-calendar-check"></i> Időpontot foglalok
                                 </a>
+                                <!-- ÚJ GOMB: Frizura ajánlása -->
+                                <a href="arc_elemzes.php" class="btn btn-info text-white w-100">
+                                    <i class="bi bi-camera"></i> Frizura ajánlása (AI)
+                                </a>
                                 <?php if ($salon['already_reviewed'] > 0): ?>
                                     <button class="btn btn-outline-success w-100 disabled" disabled>
                                         <i class="bi bi-check-all"></i> Már értékelted
