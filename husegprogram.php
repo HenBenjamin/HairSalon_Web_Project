@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once 'config.php'; // Adatbázis kapcsolat ($pdo)
+require_once 'config.php';
 
 // Csak bejelentkezett felhasználók láthatják
 if (!isset($_SESSION['user_id'])) {
@@ -15,12 +15,12 @@ $stmt = $pdo->prepare("SELECT total_points FROM users WHERE user_id = ?");
 $stmt->execute([$user_id]);
 $userPoints = $stmt->fetchColumn() ?: 0;
 
-// 2. Aktív (még fel nem használt) kuponok lekérése
+// 2. Aktív, nem használt kuponok lekérése
 $stmt = $pdo->prepare("SELECT * FROM coupons WHERE user_id = ? AND is_used = 0 ORDER BY created_at DESC");
 $stmt->execute([$user_id]);
 $activeCoupons = $stmt->fetchAll();
 
-// Konstans a ponthathárhoz (ezt később könnyen módosíthatod)
+// Konstans a ponthathárhoz
 $POINTS_LIMIT = 100;
 ?>
 
@@ -32,7 +32,7 @@ $POINTS_LIMIT = 100;
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 </head>
-<body class="bg-light">
+<body class="bg-light d-flex flex-column min-vh-100">
 
 <?php include 'navbar.php'; ?>
 
@@ -58,10 +58,10 @@ $POINTS_LIMIT = 100;
                         <span><?= $userPoints ?> / <?= $POINTS_LIMIT ?> pont</span>
                     </div>
                     <div class="progress mb-4" style="height: 30px; border-radius: 15px;">
-                        <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" 
-                             role="progressbar" 
-                             style="width: <?= $percent ?>%">
-                             <?= round($percent) ?>%
+                        <div class="progress-bar bg-success" 
+                            role="progressbar" 
+                            style="width: <?= $percent ?>%">
+                            <?= round($percent) ?>%
                         </div>
                     </div>
 
@@ -106,6 +106,9 @@ $POINTS_LIMIT = 100;
         </div>
     </div>
 </div>
+<footer class="bg-dark text-white py-2 mt-auto">
+    <?php include 'footer.html'; ?>
+</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

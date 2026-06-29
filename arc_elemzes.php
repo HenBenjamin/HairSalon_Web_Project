@@ -17,23 +17,8 @@ if (!isset($_SESSION['user_id'])) {
     <title>AI Arcforma Elemzés</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="style.css">
-    <style>
-        #camera-container {
-            display: none;
-            position: relative;
-            max-width: 500px;
-            margin: 0 auto;
-        }
-        #video {
-            width: 100%;
-            border-radius: 10px;
-            transform: scaleX(-1); /* Tükrözés, hogy természetesebb legyen */
-        }
-        #canvas {
-            display: none;
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+     <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="bg-light d-flex flex-column min-vh-100">
 <nav>
@@ -43,15 +28,14 @@ if (!isset($_SESSION['user_id'])) {
 <div class="container mt-5">
     <div class="text-center mb-5">
         <h2 class="fw-bold">Frizura ajánlása AI segítségével</h2>
-        <p class="text-muted">Tölts fel egy képet, vagy készíts egy szelfit az elemzéshez!</p>
+        <p class="text-muted">Tölts fel egy képet az elemzéshez!</p>
     </div>
 
     <div class="row justify-content-center">
-        <!-- OPCIÓ 1: Fájl feltöltése -->
         <div class="col-md-5 mb-4">
             <div class="card h-100 shadow-sm border-0">
-                <div class="card-body text-center p-4">
-                    <i class="bi bi-file-earmark-arrow-up text-primary" style="font-size: 3rem;"></i>
+                <div class="card-body card-ai text-center p-4">
+                    <i class="fa-solid fa-file-arrow-up" style="font-size: 3rem;"></i>
                     <h4 class="mt-3">Kép feltöltése</h4>
                     <p class="small text-muted">Válassz egy éles fotót a galériádból.</p>
 
@@ -71,7 +55,7 @@ if (!isset($_SESSION['user_id'])) {
                             </div>
                         </div>
                         <input type="file" name="face_image" class="form-control mb-3" accept="image/*" required>
-                        <button type="submit" name="upload_mode" class="btn btn-primary w-100">
+                        <button type="submit" name="upload_mode" class="btn btn-szalon-foglalas w-100">
                             Elemzés indítása
                         </button>
                     </form>
@@ -80,7 +64,7 @@ if (!isset($_SESSION['user_id'])) {
         </div>
 
         <!-- OPCIÓ 2: Webkamera -->
-        <div class="col-md-5 mb-4">
+        <!-- <div class="col-md-5 mb-4">
             <div class="card h-100 shadow-sm border-0">
                 <div class="card-body text-center p-4">
                     <i class="bi bi-camera text-info" style="font-size: 3rem;"></i>
@@ -121,9 +105,11 @@ if (!isset($_SESSION['user_id'])) {
                     <canvas id="canvas" width="640" height="480"></canvas>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
     const video = document.getElementById('video');
@@ -169,6 +155,6 @@ captureBtn.addEventListener('click', () => {
 });
 </script>
 
-<?php include 'footer.php'; ?>
+<?php include 'footer.html'; ?>
 </body>
 </html>

@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once "config.php";
+require_once "classes/AppointmentManager.php";
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
@@ -18,57 +19,24 @@ if (!$salon_id || !$service_id || !$date) {
 
 $day_of_week = date('N', strtotime($date));
 
-// 1. Nyitvatartás lekérése
-$stmt = $pdo->prepare("SELECT * FROM working_hours WHERE salon_id = ? AND day_of_week = ?");
-$stmt->execute([$salon_id, $day_of_week]);
-$hours = $stmt->fetch();
+$appointmentManager = new AppointmentManager($pdo);
 
-// Változó a zárva tartás állapotának tárolására
+// 1. Nyitvatartás lekérése objektummal
+$hours = $appointmentManager->getWorkingHours($salon_id, $day_of_week);
 $is_closed = (!$hours || $hours['is_closed']);
 
 $all_slots = [];
 $duration = 30;
 
 if (!$is_closed) {
-    // 2. Szolgáltatás időtartamának lekérése
-    $stmt = $pdo->prepare("SELECT duration FROM services WHERE service_id = ?");
-    $stmt->execute([$service_id]);
-    $service = $stmt->fetch();
-    $duration = $service['duration'] ?? 30;
+    // 2. Szolgáltatás időtartama objektummal
+    $duration = $appointmentManager->getServiceDuration($service_id);
 
-    // 3. Foglalt időpontok lekérése
-    $stmt = $pdo->prepare("SELECT appointment_time, appointment_id FROM appointments WHERE salon_id = ? AND appointment_date = ? AND status != 'cancelled'");
-    $stmt->execute([$salon_id, $date]);
-    $booked_data = $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
+    // 3. Foglalt időpontok lekérése objektummal
+    $booked_data = $appointmentManager->getBookedSlots($salon_id, $date);
 
-    // 4. Idősávok generálása
-    $start = strtotime($hours['start_time']);
-    $end = strtotime($hours['end_time']);
-    $now = time(); // A jelenlegi pontos idő timestamp formátumban
-
-    while ($start + ($duration * 60) <= $end) {
-        $current_slot = date("H:i", $start);
-        $db_format = $current_slot . ":00";
-
-        // Kombináljuk a kiválasztott dátumot a generált idősávval, hogy megkapjuk a jövőbeli időpont timestamp-jét
-        $slot_timestamp = strtotime($date . ' ' . $current_slot);
-
-        // EXTRA ELLENŐRZÉS: Ha ez a slot MÁR ELMÚLT a mai napon, akkor generálás nélkül ugrunk a következőre
-        if ($slot_timestamp < $now) {
-            $start += 30 * 60; // Ugorj a következő 30 perces blokkra
-            continue; // Kihagyja a lenti tömbbe pakolást, megy a köv. körre
-        }
-
-        $is_booked = isset($booked_data[$db_format]);
-
-        $all_slots[] = [
-            'time' => $current_slot,
-            'booked' => $is_booked,
-            'appointment_id' => $is_booked ? $booked_data[$db_format] : null
-        ];
-
-        $start += 30 * 60;
-    }
+    // 4. Idősávok generálása az objektum logikájával
+    $all_slots = $appointmentManager->generateAvailableSlots($hours, $duration, $booked_data, $date);
 }
 ?>
 
@@ -80,31 +48,9 @@ if (!$is_closed) {
     <title>Szabad időpontok</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
-    <style>
-        .btn-check:checked + .btn-outline-success {
-            background-color: #198754;
-            color: white;
-            box-shadow: 0 0 10px rgba(25, 135, 84, 0.5);
-        }
-        .slot-box {
-            height: 65px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            transition: all 0.2s ease;
-        }
-        .slot-box:hover {
-            transform: translateY(-2px);
-        }
-        .closed-container {
-            max-width: 500px;
-            margin: 50px auto;
-        }
-    </style>
+    <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="bg-light">
+<body class="bg-light d-flex flex-column min-vh-100">
 
 <?php include 'navbar.php'; ?>
 
@@ -204,7 +150,7 @@ if (!$is_closed) {
                         <i class="bi bi-calendar-check me-2"></i> Foglalás megerősítése
                     </button>
 
-                    <a href="foglalas.php?salon_id=<?php echo $salon_id; ?>" class="btn btn-link w-100 text-decoration-none text-muted text-center">
+                    <a href="foglalas.php?salon_id=<?php echo $salon_id; ?>&service_id=<?php echo $service_id; ?>&date=<?php echo $date; ?>" class="btn btn-link w-100 text-decoration-none text-muted text-center">
                         <i class="bi bi-arrow-left"></i> Vissza a dátumválasztáshoz
                     </a>
                 </div>

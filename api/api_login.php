@@ -8,6 +8,7 @@ require_once "../config.php";
 require_once '../vendor/autoload.php';
 
 use Detection\MobileDetect;
+use Firebase\JWT\JWT;
 
 // 1. Pre-flight (OPTIONS) kezelés
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
@@ -41,10 +42,27 @@ $user = $stmt->fetch();
 // 5. Hitelesítés
 if ($user && password_verify($password, $user['password'])) {
 
+    // 1. JWT TOKEN GENERÁLÁSA
+    $issuedAt = time();
+    $expire = $issuedAt + (60 * 60 * 24 * 30); // 30 napig érvényes token
+
+    $payload = [
+        "iat" => $issuedAt, 
+        "exp" => $expire,  
+        "user" => [
+            "id" => $user['user_id'] ?? $user['id'],
+            "username" => $user['username'],
+            "role" => $user['role']
+        ]
+    ];
+
+    $jwt = \Firebase\JWT\JWT::encode($payload, JWT_SECRET, JWT_ALG);
+
+
     try {
         $deviceType = 'pc';
         if (class_exists('Detection\MobileDetect')) {
-            $detect = new MobileDetect();
+            $detect = new \Detection\MobileDetect();
             if ($detect->isTablet()) $deviceType = 'tablet';
             elseif ($detect->isMobile()) $deviceType = 'mobile';
         }
@@ -68,21 +86,26 @@ if ($user && password_verify($password, $user['password'])) {
         $logStmt->execute([$u_id, $ip, $deviceType, $city]);
 
     } catch (\Throwable $e) {
-        // Opcionális: itt küldhetunk hibat
+        // Ha a naplózás elhasalna (pl. nincs net az IP API-hoz), a login akkor is működni fog!
     }
 
-    // SIKERES VÁLASZ
+
+    // 3. egyetlen, sikeres válasz kiküldése a tokannel
     http_response_code(200);
     echo json_encode([
         "status" => "success",
+        "token" => $jwt, // A mobilapp megkapja a titkosított tokent
         "user" => [
             "id" => $user['user_id'] ?? $user['id'],
+            "user_id" => $user['user_id'] ?? $user['id'],
             "username" => $user['username'],
             "role" => $user['role']
         ]
     ]);
+    exit;
 
 } else {
-    http_response_code(401); // Unauthorized
-    echo json_encode(["status" => "error", "message" => "Hibas email vagy jelszo!"]);
+    http_response_code(401);
+    echo json_encode(["status" => "error", "message" => "Hibás email vagy jelszó!"]);
+    exit;
 }

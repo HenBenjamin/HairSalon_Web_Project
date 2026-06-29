@@ -1,13 +1,11 @@
 <?php
-// Mivel ez parancssorból futhat, abszolút elérési utat használunk a config-hoz
 require_once __DIR__ . "/config.php"; 
-require_once __DIR__ . "/vendor/autoload.php"; // PHPMailer-hez
+require_once __DIR__ . "/vendor/autoload.php";
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 // 1. Keressük ki a holnapi foglalásokat, amikről még nem ment ki emlékeztető
-// Feltételezzük, hogy adtál egy 'reminder_sent' oszlopot az appointments táblához (TINYINT)
 $tomorrow = date('Y-m-d', strtotime('+1 day'));
 
 $stmt = $pdo->prepare("
@@ -26,7 +24,6 @@ foreach ($reminders as $rem) {
     $mail = new PHPMailer(true);
 
     try {
-        // Mailtrap vagy éles SMTP beállítások
         $mail->isSMTP();
         $mail->Host = 'sandbox.smtp.mailtrap.io';
         $mail->SMTPAuth = true;
@@ -47,7 +44,6 @@ foreach ($reminders as $rem) {
 
         $mail->send();
 
-        // 2. Megjelöljük, hogy az emlékeztetőt elküldtük
         $update = $pdo->prepare("UPDATE appointments SET reminder_sent = 1 WHERE appointment_id = ?");
         $update->execute([$rem['appointment_id']]);
 

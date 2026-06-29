@@ -43,14 +43,9 @@ if (!isset($_GET['token'])) {
     <title>Fiók aktiválása - HairSalon</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        body { background-color: #f8f9fa; height: 100vh; display: flex; align-items: center; }
-        .activation-card { max-width: 450px; border: none; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        .icon-box { font-size: 4rem; margin-bottom: 20px; }
-        .btn-custom { border-radius: 25px; padding: 10px 30px; font-weight: 600; }
-    </style>
+    <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="bg-light d-flex flex-column min-vh-100">
 
 <div class="container">
     <div class="row justify-content-center">

@@ -52,8 +52,16 @@ if (isset($_GET['token'])) {
     <meta charset="UTF-8">
     <title>Új jelszó megadása</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="bg-light">
+<body class="bg-light d-flex flex-column min-vh-100">
+    <nav>
+        <?php include 'navbar.php'; ?>
+    </nav>
+
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-5">
@@ -67,23 +75,22 @@ if (isset($_GET['token'])) {
                 <?php if ($showForm): ?>
                     <form action="reset_password.php?token=<?php echo htmlspecialchars($token); ?>" method="POST">
                         <div class="mb-3">
-                            <label class="form-label">Új jelszó:</label>
+                            <label class="form-label"><i class="fa-solid fa-lock"></i> Új jelszó:</label>
                             <input type="password" name="password" class="form-control" minlength="6" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Új jelszó megerősítése:</label>
+                            <label class="form-label"><i class="fa-solid fa-lock"></i> Új jelszó megerősítése:</label>
                             <input type="password" name="confirm_password" class="form-control" required>
                         </div>
-                        <button type="submit" class="btn btn-success w-100">Jelszó mentése</button>
+                        <button type="submit" class="btn btn-szalon-foglalas btn-success w-100">Jelszó mentése</button>
                     </form>
                 <?php endif; ?>
-
-                <div class="text-center mt-3">
-                    <a href="login.php" class="text-decoration-none">Vissza a bejelentkezéshez</a>
-                </div>
             </div>
         </div>
     </div>
 </div>
+<footer class="bg-dark text-white py-2 mt-auto">
+    <?php include 'footer.html'; ?>
+</footer>
 </body>
 </html>

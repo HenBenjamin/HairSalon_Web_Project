@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once "config.php"; // Az adatbázis kapcsolódáshoz (PDO)
+require_once "config.php";
 
 // Csak bejelentkezett felhasználók használhatják a funkciót
 if (!isset($_SESSION['user_id'])) {
@@ -24,7 +24,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // 2. Kép feldolgozása forrástól függően
     if (isset($_POST['camera_mode']) && !empty($_POST['image_data'])) {
-        // WEBKAMERA: Base64 string dekódolása
         $img = $_POST['image_data'];
         $img = str_replace('data:image/jpeg;base64,', '', $img);
         $img = str_replace(' ', '+', $img);
@@ -42,47 +41,51 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         die("Hiba: Nem érkezett érvényes kép adat.");
     }
 
-    // 3. PYTHON SCRIPT MEGHÍVÁSA (Az adatcsere kulcspontja)
-    // Megjegyzés: Windows alatt csak 'python', Linuxon 'python3' lehet a parancs
+    // 3. python script meghívása
     $pythonExecutable = "python";
     $pythonScript = "ai/analyze_face.py";
 
     // Parancs összeállítása: python ai/analyze_face.py images/uploads/kep.jpg
-    // Az escapeshellarg biztonsági okokból kötelező!
     $command = "$pythonExecutable $pythonScript " . escapeshellarg($targetFilePath) . " 2>&1";
 
-    // A Python válaszának (pl. "szogletes") elkapása
+    // A Python válaszának pl: szogletes, elkapasa
     $output = shell_exec($command);
 
-    // $detectedShape = trim($output);
-    // 4. EREDMÉNY KINYERÉSE (Tisztítás a MediaPipe logoktól)
-    // Megkeressük a "RESULT:" kezdetű sort a kimenetben
+    // 4. eredmény kinyerése (tisztítás a mediapipe logoktól)
+    // megkeressük a "result:" kezdetű sort a kimenetben
 
     $detectedShape = "error";
-    if (preg_match('/RESULT:([a-z]+)/', $output, $matches)) {
-        $detectedShape = $matches[1]; // Csak a forma (pl. szogletes, kerek)
+    $faceRatio = "0.00";
+    $jawRatio = "0.00";
+
+    if (preg_match('/RESULT:([^\r\n]+)/', $output, $matches)) {
+        $raw_result = trim($matches[1]); // pl. "kerek;1.12;0.82"
+        
+        $data_parts = explode(';', $raw_result);
+        
+        if (count($data_parts) === 3) {
+            $detectedShape = $data_parts[0]; // pl. kerek
+            $faceRatio     = $data_parts[1]; // pl. 1.12
+            $jawRatio      = $data_parts[2]; // pl. 0.82
+        }
     }
 
-    // Érvényes formák listája (legyen összhangban a Python kódoddal és az SQL-el)
     $validShapes = ['kerek', 'ovalis', 'szogletes', 'hosszukas'];
 
-    // 4. HIBAKEZELÉS ÉS IRÁNYÍTÁS
-
     if (in_array($detectedShape, $validShapes)) {
-        // Sikeres elemzés -> mentjük a sessionbe az eredményt és irányítunk tovább
         $_SESSION['last_detected_shape'] = $detectedShape;
         $_SESSION['last_uploaded_image'] = $targetFilePath;
+        $_SESSION['face_ratio'] = $faceRatio;
+        $_SESSION['jaw_ratio'] = $jawRatio;
 
         header("Location: ajanlasok.php?shape=" . urlencode($detectedShape));
         exit;
     } else {
-        // Valami hiba történt a Python oldalon (pl. nem talált arcot)
         echo "<h3>Hiba az elemzés során!</h3>";
         echo "<p>A rendszer válasza: " . htmlspecialchars($output) . "</p>";
         echo "<a href='arc_elemzes.php'>Próbálja újra</a>";
     }
 } else {
-    // Ha valaki közvetlenül akarná megnyitni a fájlt
     header("Location: arc_elemzes.php");
     exit;
 }
