@@ -1,6 +1,6 @@
 # HairSalon - Időpontfoglaló Webalkalmazás
 
-Ez egy webes időpontfoglaló rendszer fodrászszalonok számára, amely PHP (PDO), MySQL és Bootstrap technológiák felhasználásával készült. A projekt az iskolai vizsgaremek részeként valósult meg.
+Ez egy webes időpontfoglaló rendszer fodrászszalonok számára, amely PHP (PDO), MySQL és Bootstrap technológiák felhasználásával készült. A projekt az iskolai vizsga részeként valósult meg.
 
 ## Főbb funkciók
 * **Négy hozzáférési szint:** Vendég, Regisztrált felhasználó, Szalon tulajdonosa és Adminisztrátor.
@@ -8,19 +8,5 @@ Ez egy webes időpontfoglaló rendszer fodrászszalonok számára, amely PHP (PD
 * **Admin vezérlőpult:** Felhasználók kezelése, biztonsági belépési napló IP-alapú detektálással és eszközfelismeréssel.
 * **E-mail küldés:** SMTP integráció PHPMailer és Mailtrap használatával.
 
-## Technikai részletek
-* **Backend:** PHP 8.3+ (Objektumorientált megközelítés, PDO).
-* **Frontend:** HTML5, CSS3, JavaScript, Bootstrap 5.
-* **Adatbázis:** MySQL (InnoDb).
-* **Függőségkezelés:** Composer.
-
-## Telepítés és beállítás
-
-1. **Adatbázis importálása:**
-   - Hozz létre egy adatbázist a MySQL szervereden.
-   - Importáld a gyökérkönyvtárban található `hh.sql` fájlt.
-
-2. **Függőségek telepítése:**
-   - Futtasd a következő parancsot a projekt mappájában:
-   ```bash
-   composer install
+* **Projekt Dokumentáció:** A részletes projektleírás, piackutatás és technikai specifikáció a `docs/` mappában található PDF formátumban.
+* **API Tesztelés:** A  `Hairsalon.postman_collection.json` fájl a 'postman_test/' mappában található, importálható Postmanbe az API végpontok teszteléséhez.
