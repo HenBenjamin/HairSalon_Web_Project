@@ -4,9 +4,9 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 const PARAMS = [
     "HOST" => 'localhost',
-    "USER" => 'hh',
+    "USER" => 'root',
     "PASSWORD" => '',
-    "DB" => 'hh',
+    "DB" => 'hairsalon',
     "CHARSET" => 'utf8mb4'
 ];
 
@@ -33,3 +33,6 @@ define('TWILIO_SID', $_ENV['TWILIO_SID']);
 define('TWILIO_TOKEN', $_ENV['TWILIO_TOKEN']);
 define('TWILIO_PHONE', $_ENV['TWILIO_PHONE']);
 define('MY_PHONE', $_ENV['MY_PHONE']);
+
+define('JWT_SECRET', 'udsfnreydfndf28874fdsfww2fdsxefre30625');
+define('JWT_ALG', 'HS256');

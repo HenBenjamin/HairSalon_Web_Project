@@ -1,5 +1,4 @@
 <?php
-// Hibakeresés bekapcsolva, de pufferelve, hogy ne rontsa el a JSON-t
 ob_start();
 ini_set('display_errors', 1);
 error_reporting(E_ALL);

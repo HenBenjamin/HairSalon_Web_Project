@@ -39,17 +39,18 @@ $services = $stmt->fetchAll();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Időpontfoglalás - <?php echo htmlspecialchars($salon['name']); ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="bg-light">
+<body class="bg-light d-flex flex-column min-vh-100">
 
 <?php include 'navbar.php'; ?>
 
-<div class="container mt-5">
+<div class="container mt-5 mb-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card shadow">
-                <div class="card-header bg-primary text-white">
+                <div class="card-header card-foglalas bg-primary text-white">
                     <h3 class="mb-0 text-white"><?php echo htmlspecialchars($salon['name']); ?> - Időpontfoglalás</h3>
                     <small><?php echo htmlspecialchars($salon['city'] . ", " . $salon['address']); ?></small>
                 </div>
@@ -60,9 +61,12 @@ $services = $stmt->fetchAll();
                         <h5 class="mb-3">Válasszon szolgáltatást:</h5>
                         <div class="list-group mb-4">
                             <?php foreach ($services as $s): ?>
+                                <?php 
+                                $isSelected = (isset($_GET['service_id']) && $_GET['service_id'] == $s['service_id']) ? 'checked' : ''; 
+                                ?>
                                 <label class="list-group-item d-flex justify-content-between align-items-center">
                                     <div>
-                                        <input class="form-check-input me-2" type="radio" name="service_id" value="<?php echo $s['service_id']; ?>" required>
+                                        <input class="form-check-input me-2" type="radio" name="service_id" value="<?php echo $s['service_id']; ?>" required <?php echo $isSelected; ?>>
                                         <strong><?php echo htmlspecialchars($s['name']); ?></strong>
                                         <br><small class="text-muted">Időtartam: <?php echo $s['duration']; ?> perc</small>
                                     </div>
@@ -74,7 +78,7 @@ $services = $stmt->fetchAll();
                         </div>
 
                         <div class="mb-4">
-                            <label for="date" class="form-label fw-bold">Válasszon egy szabad napot:</label>
+                            <label for="date" class="form-label fw-bold">Válasszon egy napot:</label>
                             <input type="date" name="date" id="date" class="form-control"
                                    min="<?php echo date('Y-m-d'); ?>" required>
                             <div id="info-text" class="form-text">
@@ -91,5 +95,8 @@ $services = $stmt->fetchAll();
     </div>
 </div>
 
+<footer class="bg-dark text-white py-2 mt-auto">
+    <?php include 'footer.html'; ?>
+</footer>
 </body>
 </html>

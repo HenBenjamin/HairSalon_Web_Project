@@ -27,8 +27,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>Szerkesztés</title>
 </head>
-<body class="bg-light p-5">
-<div class="container" style="max-width: 500px;">
+<body class="bg-light d-flex flex-column min-vh-100">
+    <nav>
+        <?php include 'navbar.php'; ?>
+    </nav>
+<div class="container mt-4" style="max-width: 500px;">
     <div class="card p-4 shadow-sm">
         <h3>Szolgáltatás módosítása</h3>
         <form method="post">
@@ -49,5 +52,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </form>
     </div>
 </div>
+<footer class="bg-dark text-white py-2 mt-auto">
+    <?php include 'footer.html'; ?>
+</footer>
 </body>
 </html>

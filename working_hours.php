@@ -18,8 +18,9 @@ $napok = [1 => 'Hétfő', 2 => 'Kedd', 3 => 'Szerda', 4 => 'Csütörtök', 5 => 
 // Mentés
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     foreach ($napok as $key => $nap) {
-        $start = $_POST['start_'.$key];
-        $end = $_POST['end_'.$key];
+        //Ha le van tiltva a mező, akkor üres stringet adunk neki, vagy megtartjuk az alapértelmezettet
+        $start = $_POST['start_'.$key] ?? '00:00';
+        $end = $_POST['end_'.$key] ?? '00:00';
         $closed = isset($_POST['closed_'.$key]) ? 1 : 0;
 
         // Megnézzük, van-e már rögzítve adat ehhez a naphoz
@@ -52,50 +53,95 @@ while($row = $hours_stmt->fetch()) {
     <meta charset="UTF-8">
     <title>Nyitvatartás beállítása</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="bg-light">
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-    <div class="container">
-        <a class="navbar-brand" href="index.php">Szalon Kezelés</a>
-        <div class="navbar-nav">
-            <a class="nav-link" href="services.php">Szolgáltatások</a>
-            <a class="nav-link" href="working_hours.php">Nyitvatartás</a>
-            <a class="nav-link" href="owner_appointments.php">Időpontok kezelése</a>
-            <a class="nav-link text-danger" href="logout.php">Kijelentkezés</a>
-        </div>
-    </div>
-</nav>
-<div class="container mt-5">
-    <div class="card shadow p-4">
-        <h3>Heti nyitvatartás beállítása</h3>
-        <?php if(isset($message)) echo "<div class='alert alert-success'>$message</div>"; ?>
+<body class="bg-light d-flex flex-column min-vh-100">
+    <nav>
+        <?php include 'navbar.php'; ?>
+    </nav>
+<div class="container my-5 flex-grow-1">
+    <div class="card border-0 shadow-sm p-4 rounded-3 bg-white">
+        <h3 class="working_h3 text-dark fw-bold mb-4"><i class="fa-solid fa-business-time"></i> Heti nyitvatartás beállítása</h3>
+        
+        <?php if(isset($message)) echo "<div class='alert alert-success border-0 shadow-sm rounded-3'>$message</div>"; ?>
+        
         <form method="post">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>Nap</th>
-                    <th>Nyitás</th>
-                    <th>Zárás</th>
-                    <th>Zárva?</th>
-                </tr>
-                </thead>
-                <tbody>
-                <?php foreach($napok as $num => $nev):
-                    $h = $current_hours[$num] ?? ['start_time' => '08:00', 'end_time' => '16:00', 'is_closed' => 0];
-                    ?>
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-light text-secondary">
                     <tr>
-                        <td><strong><?= $nev ?></strong></td>
-                        <td><input type="time" name="start_<?= $num ?>" class="form-control" value="<?= substr($h['start_time'], 0, 5) ?>"></td>
-                        <td><input type="time" name="end_<?= $num ?>" class="form-control" value="<?= substr($h['end_time'], 0, 5) ?>"></td>
-                        <td><input type="checkbox" name="closed_<?= $num ?>" <?= $h['is_closed'] ? 'checked' : '' ?>></td>
+                        <th class="py-3"><i class="fa-regular fa-calendar"></i> Nap</th>
+                        <th class="py-3"><i class="fa-solid fa-lock-open"></i> Nyitás</th>
+                        <th class="py-3"><i class="fa-solid fa-lock"></i> Zárás</th>
+                        <th class="py-3 text-center"><i class="fa-solid fa-moon"></i> Zárva?</th>
                     </tr>
-                <?php endforeach; ?>
-                </tbody>
-            </table>
-            <button type="submit" class="btn btn-primary">Minden nap mentése</button>
-            <a href="services.php" class="btn btn-secondary">Vissza a szolgáltatásokhoz</a>
+                    </thead>
+                    <tbody>
+                    <?php foreach($napok as $num => $nev):
+                        $h = $current_hours[$num] ?? ['start_time' => '08:00', 'end_time' => '16:00', 'is_closed' => 0];
+                        $isClosed = $h['is_closed'] == 1;
+                        ?>
+                        <tr id="row_<?= $num ?>" class="<?= $isClosed ? 'disabled-row' : '' ?>">
+                            <td><span class="fs-6 fw-semibold text-dark"><?= $nev ?></span></td>
+                            <td>
+                                <div class="time-input-group">
+                                    <input type="time" name="start_<?= $num ?>" id="start_<?= $num ?>" class="form-control time-picker-custom" value="<?= substr($h['start_time'], 0, 5) ?>" <?= $isClosed ? 'disabled' : '' ?>>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="time-input-group">
+                                    <input type="time" name="end_<?= $num ?>" id="end_<?= $num ?>" class="form-control time-picker-custom" value="<?= substr($h['end_time'], 0, 5) ?>" <?= $isClosed ? 'disabled' : '' ?>>
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <div class="form-check form-switch d-inline-block">
+                                    <input type="checkbox" name="closed_<?= $num ?>" id="closed_<?= $num ?>" class="form-check-input switch-trigger" data-day="<?= $num ?>" <?= $isClosed ? 'checked' : '' ?>>
+                                </div>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="mt-4 d-flex gap-2">
+                <button type="submit" class="btn btn-primary px-4 py-2 rounded-3 shadow-sm fw-bold"><i class="fa-regular fa-floppy-disk"></i> Minden nap mentése</button>
+                <a href="services.php" class="btn btn-outline-secondary px-4 py-2 rounded-3 fw-bold">Vissza a szolgáltatásokhoz</a>
+            </div>
         </form>
     </div>
 </div>
+<footer class="bg-dark text-white py-2 mt-auto">
+    <?php include 'footer.html'; ?>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const switches = document.querySelectorAll('.switch-trigger');
+
+    switches.forEach(sw => {
+        sw.addEventListener('change', function () {
+            const dayNum = this.getAttribute('data-day');
+            const row = document.getElementById(`row_${dayNum}`);
+            const startInput = document.getElementById(`start_${dayNum}`);
+            const endInput = document.getElementById(`end_${dayNum}`);
+
+            if (this.checked) {
+                row.classList.add('disabled-row');
+                startInput.disabled = true;
+                endInput.disabled = true;
+            } else {
+                row.classList.remove('disabled-row');
+                startInput.disabled = false;
+                endInput.disabled = false;
+            }
+        });
+    });
+});
+</script>
 </body>
 </html>

@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once "config.php";
+require_once "classes/AppointmentManager.php";
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
@@ -18,47 +19,24 @@ if (!$salon_id || !$service_id || !$date) {
 
 $day_of_week = date('N', strtotime($date));
 
-// 1. Nyitvatartás lekérése
-$stmt = $pdo->prepare("SELECT * FROM working_hours WHERE salon_id = ? AND day_of_week = ?");
-$stmt->execute([$salon_id, $day_of_week]);
-$hours = $stmt->fetch();
+$appointmentManager = new AppointmentManager($pdo);
 
-// Változó a zárva tartás állapotának tárolására
+// 1. Nyitvatartás lekérése objektummal
+$hours = $appointmentManager->getWorkingHours($salon_id, $day_of_week);
 $is_closed = (!$hours || $hours['is_closed']);
 
 $all_slots = [];
 $duration = 30;
 
 if (!$is_closed) {
-    // 2. Szolgáltatás időtartamának lekérése
-    $stmt = $pdo->prepare("SELECT duration FROM services WHERE service_id = ?");
-    $stmt->execute([$service_id]);
-    $service = $stmt->fetch();
-    $duration = $service['duration'] ?? 30;
+    // 2. Szolgáltatás időtartama objektummal
+    $duration = $appointmentManager->getServiceDuration($service_id);
 
-    // 3. Foglalt időpontok lekérése
-    $stmt = $pdo->prepare("SELECT appointment_time, appointment_id FROM appointments WHERE salon_id = ? AND appointment_date = ? AND status != 'cancelled'");
-    $stmt->execute([$salon_id, $date]);
-    $booked_data = $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
+    // 3. Foglalt időpontok lekérése objektummal
+    $booked_data = $appointmentManager->getBookedSlots($salon_id, $date);
 
-    // 4. Idősávok generálása
-    $start = strtotime($hours['start_time']);
-    $end = strtotime($hours['end_time']);
-
-    while ($start + ($duration * 60) <= $end) {
-        $current_slot = date("H:i", $start);
-        $db_format = $current_slot . ":00";
-
-        $is_booked = isset($booked_data[$db_format]);
-
-        $all_slots[] = [
-            'time' => $current_slot,
-            'booked' => $is_booked,
-            'appointment_id' => $is_booked ? $booked_data[$db_format] : null
-        ];
-
-        $start += 30 * 60;
-    }
+    // 4. Idősávok generálása az objektum logikájával
+    $all_slots = $appointmentManager->generateAvailableSlots($hours, $duration, $booked_data, $date);
 }
 ?>
 
@@ -70,31 +48,9 @@ if (!$is_closed) {
     <title>Szabad időpontok</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
-    <style>
-        .btn-check:checked + .btn-outline-success {
-            background-color: #198754;
-            color: white;
-            box-shadow: 0 0 10px rgba(25, 135, 84, 0.5);
-        }
-        .slot-box {
-            height: 65px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            transition: all 0.2s ease;
-        }
-        .slot-box:hover {
-            transform: translateY(-2px);
-        }
-        .closed-container {
-            max-width: 500px;
-            margin: 50px auto;
-        }
-    </style>
+    <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="bg-light">
+<body class="bg-light d-flex flex-column min-vh-100">
 
 <?php include 'navbar.php'; ?>
 
@@ -133,7 +89,7 @@ if (!$is_closed) {
             <h4 class="mb-3">Időpontok kiválasztása: <?php echo htmlspecialchars($date); ?></h4>
             <div class="d-flex gap-3 mb-4 flex-wrap">
                 <span class="badge bg-success">Szabad</span>
-                <span class="badge bg-danger">Foglalt (Várólista)</span>
+                <span class="badge bg-danger">Foglalt</span>
                 <span class="text-muted ms-auto">
                     <i class="bi bi-clock me-1"></i> Időtartam: <?php echo $duration; ?> perc
                 </span>
@@ -150,7 +106,9 @@ if (!$is_closed) {
                             <p class="text-muted">Nincs elérhető időpont erre a napra a megadott nyitvatartás alapján.</p>
                         </div>
                     <?php else: ?>
-                        <?php foreach ($all_slots as $slot): ?>
+
+                        <!-- // Slotok generalasa, varolistaval egyutt -->
+                        <!-- <?php foreach ($all_slots as $slot): ?>
                             <div class="col-6 col-sm-4 col-md-3 col-lg-2">
                                 <?php if ($slot['booked']): ?>
                                     <a href="varolista_csatlakozas.php?id=<?php echo $slot['appointment_id']; ?>&service_id=<?php echo $service_id; ?>"
@@ -159,6 +117,23 @@ if (!$is_closed) {
                                         <span class="fw-bold"><?php echo $slot['time']; ?></span>
                                         <small style="font-size: 0.6rem; text-transform: uppercase;">Várólista</small>
                                     </a>
+                                <?php else: ?>
+                                    <input type="radio" class="btn-check" name="time" id="t-<?php echo $slot['time']; ?>" value="<?php echo $slot['time']; ?>" required>
+                                    <label class="btn btn-outline-success w-100 slot-box fw-bold shadow-sm" for="t-<?php echo $slot['time']; ?>">
+                                        <?php echo $slot['time']; ?>
+                                    </label>
+                                <?php endif; ?>
+                            </div>
+                        <?php endforeach; ?> -->
+
+                        <!-- //varolista nelkuli slotok generalasa -->
+                        <?php foreach ($all_slots as $slot): ?>
+                            <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                                <?php if ($slot['booked']): ?>
+                                    <button type="button" class="btn btn-danger w-100 slot-box shadow-sm" disabled style="opacity: 0.65; cursor: not-allowed;">
+                                        <span class="fw-bold"><?php echo $slot['time']; ?></span>
+                                        <small style="font-size: 0.6rem; text-transform: uppercase;">Foglalt</small>
+                                    </button>
                                 <?php else: ?>
                                     <input type="radio" class="btn-check" name="time" id="t-<?php echo $slot['time']; ?>" value="<?php echo $slot['time']; ?>" required>
                                     <label class="btn btn-outline-success w-100 slot-box fw-bold shadow-sm" for="t-<?php echo $slot['time']; ?>">
@@ -175,7 +150,7 @@ if (!$is_closed) {
                         <i class="bi bi-calendar-check me-2"></i> Foglalás megerősítése
                     </button>
 
-                    <a href="foglalas.php?salon_id=<?php echo $salon_id; ?>" class="btn btn-link w-100 text-decoration-none text-muted text-center">
+                    <a href="foglalas.php?salon_id=<?php echo $salon_id; ?>&service_id=<?php echo $service_id; ?>&date=<?php echo $date; ?>" class="btn btn-link w-100 text-decoration-none text-muted text-center">
                         <i class="bi bi-arrow-left"></i> Vissza a dátumválasztáshoz
                     </a>
                 </div>

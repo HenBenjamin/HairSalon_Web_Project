@@ -21,7 +21,7 @@ if (!$salon) {
 
 $salon_id = $salon['salon_id'];
 
-// --- TÖRLÉS KEZELÉSE ---
+// --- törlés kezelése ---
 if (isset($_GET['delete_id'])) {
     $del_id = $_GET['delete_id'];
     // Biztonsági ellenőrzés: csak a saját szalonjából törölhet
@@ -57,20 +57,16 @@ $services = $stmt->fetchAll();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Szolgáltatások kezelése</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    
 </head>
-<body class="bg-light">
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-    <div class="container">
-        <a class="navbar-brand" href="index.php">Szalon Kezelés</a>
-        <div class="navbar-nav">
-            <a class="nav-link" href="services.php">Szolgáltatások</a>
-            <a class="nav-link" href="working_hours.php">Nyitvatartás</a>
-            <a class="nav-link" href="owner_appointments.php">Időpontok kezelése</a>
-            <a class="nav-link text-danger" href="logout.php">Kijelentkezés</a>
-        </div>
-    </div>
-</nav>
-<div class="container mt-5">
+<body class="bg-light d-flex flex-column min-vh-100">
+    <nav>
+        <?php include 'navbar.php'; ?>
+    </nav>
+<div class="container my-5 flex-grow-1">
     <h2><?php echo htmlspecialchars($salon['name']); ?> - Szolgáltatások</h2>
 
     <div class="row">
@@ -90,7 +86,7 @@ $services = $stmt->fetchAll();
                         <label>Időtartam (perc)</label>
                         <input type="number" name="duration" class="form-control" required>
                     </div>
-                    <button type="submit" name="add_service" class="btn btn-primary w-100">Mentés</button>
+                    <button type="submit" name="add_service" class="btn btn-szalon-foglalas btn-primary w-100">Mentés</button>
                 </form>
             </div>
         </div>
@@ -101,10 +97,10 @@ $services = $stmt->fetchAll();
                 <table class="table">
                     <thead>
                     <tr>
-                        <th>Név</th>
-                        <th>Ár</th>
-                        <th>Idő</th>
-                        <th class="text-end">Műveletek</th>
+                        <th><i class="fa-solid fa-scissors"></i> Szolgáltatás</th>
+                        <th><i class="fa-solid fa-dollar-sign"></i> Ár</th>
+                        <th><i class="fa-regular fa-clock"></i> Idő</th>
+                        <th class="text-end"><i class="fa-regular fa-pen-to-square"></i> Műveletek</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -118,9 +114,11 @@ $services = $stmt->fetchAll();
                                    class="btn btn-sm btn-warning me-1">
                                     Szerkesztés
                                 </a>
-                                <a href="services.php?delete_id=<?php echo $s['service_id']; ?>"
-                                   class="btn btn-sm btn-danger"
-                                   onclick="return confirm('Biztosan törölni akarod ezt a szolgáltatást?')">
+                                <a href="#" 
+                                    class="btn btn-sm btn-danger" 
+                                    data-bs-toggle="modal" 
+                                    data-bs-target="#deleteModal" 
+                                    data-id="<?php echo $s['service_id']; ?>">
                                     Törlés
                                 </a>
                             </td>
@@ -132,5 +130,36 @@ $services = $stmt->fetchAll();
         </div>
     </div>
 </div>
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Biztosan törlöd?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                A szolgáltatás törlése után az adatokat nem tudod visszaállítani. Biztosan folytatod?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Mégse</button>
+                <a id="confirmDeleteBtn" href="#" class="btn btn-danger">Igen, törlöm</a>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="bg-dark text-white py-2 mt-auto">
+    <?php include 'footer.html'; ?>
+</footer>
+<script>
+    const deleteModal = document.getElementById('deleteModal');
+    deleteModal.addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget;
+        const id = button.getAttribute('data-id');
+        
+        const confirmBtn = document.getElementById('confirmDeleteBtn');
+        confirmBtn.href = 'services.php?delete_id=' + id;
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
